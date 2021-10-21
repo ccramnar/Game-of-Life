@@ -1,3 +1,9 @@
+import javafx.animation.KeyFrame
+import javafx.animation.Timeline
+import javafx.event.ActionEvent
+import javafx.util.Duration;
+
+
 enum class layout {
     BLOCK, BEEHIVE, BLINKER, TOAD, GLIDER, CLEAR
 }
@@ -9,9 +15,11 @@ class Model {
     public val sizeInner = 75 //column
     public val numberOfCells = 3750;
     public var pattern:layout = layout.BLOCK ;
-
+    public var isGamePlaying = false;
     public val views = ArrayList<IView>()
     public val board = Array(sizeOuter) { BooleanArray(sizeInner) }
+    public var timeLine: Timeline? = null;
+    public val speed:Double = 1000.0;
 
     // view management
     fun addView(view: IView) {
@@ -27,6 +35,19 @@ class Model {
             view.update()
         }
     }
+
+    /*ANIMATION */
+    open fun initializeTimeline() {
+
+        val keyFrame = KeyFrame(Duration.millis(speed), { e: ActionEvent? ->
+            updateBoard()
+            ++counter
+        })
+        //Attach the keyframe to the Timeline.
+        timeLine = Timeline(keyFrame)
+        timeLine!!.cycleCount = Timeline.INDEFINITE
+    }
+
 
     /*MODEL THINGS */
 
@@ -45,12 +66,15 @@ class Model {
         notifyView()
     }
 
-    fun Model() {
+    init {
         for (row in  0 until sizeOuter) {
             for (column in 0 until sizeInner) {
                 board[row][column] = false;
             }
         }
+        println("here")
+        initializeTimeline()
+        play()
     }
 
     fun inBounds(row: Int, column: Int):Boolean {
@@ -58,7 +82,6 @@ class Model {
     }
 
     fun addPattern( row: Int, column: Int) {
-        ++counter;
         println("here")
         println(pattern)
         when(pattern) {
@@ -241,7 +264,6 @@ class Model {
     }
 
     fun updateBoard()  {
-        ++counter;
         for (row in  0 until sizeOuter) {
             for (column in 0 until sizeInner) {
                 //ALIVE
@@ -266,11 +288,15 @@ class Model {
     }
 
     fun play(){
-
+        //disable spacebar
+        isGamePlaying = true;
+        timeLine?.play()
     }
 
     fun pause() {
-
+        isGamePlaying = false;
+        timeLine?.pause()
+        //enable spacebar for next
     }
 
 }
