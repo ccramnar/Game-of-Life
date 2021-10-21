@@ -1,5 +1,5 @@
 enum class layout {
-    BLOCK, BEEHIVE, BLINKER, TOAD, GLIDER
+    BLOCK, BEEHIVE, BLINKER, TOAD, GLIDER, CLEAR
 }
 
 class Model {
@@ -29,6 +29,21 @@ class Model {
     }
 
     /*MODEL THINGS */
+
+    fun changePattern(newPattern: layout) {
+        pattern = newPattern;
+    }
+
+    fun clear() {
+        for (row in  0 until sizeOuter) {
+            for (column in 0 until sizeInner) {
+                board[row][column] = false;
+            }
+        }
+        changePattern(layout.CLEAR)
+        notifyView()
+    }
+
     fun Model() {
         for (row in  0 until sizeOuter) {
             for (column in 0 until sizeInner) {
@@ -183,7 +198,7 @@ class Model {
                     board[row + 2][column + 2] = true;
                 }
             }
-            else -> println("Not an applicable pattern")
+            else -> println("Choose a pattern")
         }
         notifyView()
     }

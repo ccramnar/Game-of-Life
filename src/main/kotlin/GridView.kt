@@ -50,7 +50,6 @@ class GridView(gmodel: Model) : IView, GridPane() {
         val eventSourceRow = getRowIndex(eventSource)
         println(model)
         model?.addPattern(eventSourceRow, eventSourceCol)
-        update()
     }
 
     override fun update() {
