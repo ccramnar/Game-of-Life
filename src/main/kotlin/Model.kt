@@ -17,7 +17,7 @@ class Model {
     public var pattern:layout = layout.BLOCK ;
     public var isGamePlaying = false;
     public val views = ArrayList<IView>()
-    public val board = Array(sizeOuter) { BooleanArray(sizeInner) }
+    public var board = Array(sizeOuter) { BooleanArray(sizeInner) }
     public var timeLine: Timeline? = null;
     public val speed:Double = 1000.0;
 
@@ -261,27 +261,31 @@ class Model {
     }
 
     fun updateBoard()  {
+        var loop = 0;
+        var newBoard  = Array(sizeOuter) { BooleanArray(sizeInner) }
         for (row in  0 until sizeOuter) {
             for (column in 0 until sizeInner) {
                 //ALIVE
+                ++loop;
                 if (board[row][column]) {
                     val numberofNeighbours = checkNeighbours(row, column);
-                    println(row.toString() + " " + column.toString() + "     " + numberofNeighbours.toString())
+                    println(loop.toString() + " " + row.toString() + " " + column.toString() + "     " + numberofNeighbours.toString())
                     if (numberofNeighbours < 2) {
-                        board[row][column] = false;
+                        newBoard[row][column] = false;
                     } else if (numberofNeighbours <= 3) {
-                        board[row][column] = true;
+                        newBoard[row][column] = true;
                     }  else if (numberofNeighbours > 3) {
-                        board[row][column] = false;
+                        newBoard[row][column] = false;
                     }
                 } else {
                     val numberofNeighbours = checkNeighbours(row, column);
                     if (numberofNeighbours == 3) {
-                        board[row][column] = true;
+                        newBoard[row][column] = true;
                     }
                 }
             }
         }
+        board = newBoard
         notifyView()
     }
 
@@ -295,6 +299,10 @@ class Model {
         isGamePlaying = false;
         timeLine?.pause()
         //enable spacebar for next
+    }
+
+    fun step() {
+        
     }
 
 }
