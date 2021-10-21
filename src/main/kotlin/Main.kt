@@ -12,7 +12,7 @@ class Main : Application() {
 
         // views are the children of the vbox
         val toolbar = ToolbarView()
-        val grid = GridView()
+        val grid = GridView(model)
         val status = StatusView()
 
         // register views with the model

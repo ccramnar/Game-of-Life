@@ -8,12 +8,10 @@ import javafx.scene.shape.Rectangle
 import javafx.scene.shape.StrokeType
 
 
-class GridView : IView, GridPane() {
-    private var model: Model? = null;
-
+class GridView(gmodel: Model) : IView, GridPane() {
+    private var model: Model? = gmodel;
 
     init {
-        this.model = model;
         this.padding = Insets(10.0, 10.0, 10.0, 10.0);
         this.vgap = 0.1;
         this.hgap = 0.1;
@@ -39,17 +37,18 @@ class GridView : IView, GridPane() {
                 setConstraints(cellRect, j, i)
                 this.add(cellRect, j, i)
 
-                cellRect.setOnMouseClicked{ e -> addPattern(e) }
+                cellRect.setOnMouseClicked{ e -> addPatternMouseEvent(e) }
             }
         }
     }
 
-    private fun addPattern(e: MouseEvent) {
+    private fun addPatternMouseEvent(e: MouseEvent) {
         val eventSource = e.source as Rectangle
         println(e)
         println(e.source)
         val eventSourceCol = getColumnIndex(eventSource)
         val eventSourceRow = getRowIndex(eventSource)
+        println(model)
         model?.addPattern(eventSourceRow, eventSourceCol)
         update()
     }
