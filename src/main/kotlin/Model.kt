@@ -5,7 +5,7 @@ import javafx.util.Duration;
 
 
 enum class layout {
-    BLOCK, BEEHIVE, BLINKER, TOAD, GLIDER, CLEAR
+    BLOCK, BEEHIVE, BLINKER, TOAD, GLIDER, CLEAR, NO_ACTION
 }
 
 class Model {
@@ -20,6 +20,7 @@ class Model {
     public var board = Array(sizeOuter) { BooleanArray(sizeInner) }
     public var timeLine: Timeline? = null;
     public val speed:Double = 1000.0;
+    public var newAction:layout = layout.NO_ACTION
 
     // view management
     fun addView(view: IView) {
@@ -39,11 +40,10 @@ class Model {
     /*ANIMATION */
     open fun startGame() {
 
-        val keyFrame = KeyFrame(Duration.millis(speed), { e: ActionEvent? ->
+        val keyFrame = KeyFrame(Duration.millis(speed), {
             updateBoard()
             ++counter
         })
-        //Attach the keyframe to the Timeline.
         timeLine = Timeline(keyFrame)
         timeLine!!.cycleCount = Timeline.INDEFINITE
     }
@@ -62,6 +62,7 @@ class Model {
             }
         }
         changePattern(layout.CLEAR)
+        newAction = layout.CLEAR
         counter = 0;
         notifyView()
     }
@@ -72,7 +73,6 @@ class Model {
                 board[row][column] = false;
             }
         }
-        println("here")
         startGame()
         play()
     }
@@ -82,8 +82,7 @@ class Model {
     }
 
     fun addPattern( row: Int, column: Int) {
-        println("here")
-        println(pattern)
+        newAction = pattern
         when(pattern) {
             layout.BLOCK -> {
                 board[row][column] = true;

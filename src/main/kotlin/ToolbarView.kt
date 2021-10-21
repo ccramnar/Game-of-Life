@@ -96,8 +96,8 @@ class ToolbarView(gmodel: Model) : IView, ToolBar() {
             model.step()
         }
         val stepImageView = javafx.scene.image.ImageView((Image("step.png")))
-        pauseButton.graphic = (stepImageView)
-        stepImageView.fitWidthProperty().bind(pauseButton.widthProperty().divide(5))
+        stepButton.graphic = (stepImageView)
+        stepImageView.fitWidthProperty().bind(stepButton.widthProperty().divide(5))
         stepImageView.isPreserveRatio = true
         stepButton.setMaxWidth(Double.MAX_VALUE)
         this.items.add(stepButton)*/

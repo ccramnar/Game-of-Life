@@ -17,10 +17,13 @@ class StatusView(gmodel: Model) : IView, HBox() {
 
     override fun update() {
         counterLabel.text = "Frame: " + model.counter.toString()
-        if (model.pattern == layout.CLEAR) {
+        if (model.newAction == layout.NO_ACTION) {
+            actionLabel.text = "Game has begun, No action has been performed"
+        } else if (model.newAction == layout.CLEAR) {
             actionLabel.text = "Clear Action was performed"
         } else {
-            actionLabel.text = (model.pattern).toString() + " pattern was added to the grid"
+            actionLabel.text = (model.newAction).toString() + " pattern was added to the grid"
         }
+
     }
 }
