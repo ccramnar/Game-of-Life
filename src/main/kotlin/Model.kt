@@ -265,4 +265,12 @@ class Model {
         notifyView()
     }
 
+    fun play(){
+
+    }
+
+    fun pause() {
+
+    }
+
 }

@@ -63,6 +63,30 @@ class ToolbarView(gmodel: Model) : IView, ToolBar() {
         clearImageView.isPreserveRatio = true
         clearButton.setMaxWidth(Double.MAX_VALUE)
         this.items.add(clearButton)
+
+        /*
+        val playButton = Button("Play")
+        playButton.setOnAction {
+            model.play()
+        }
+        val playImageView = javafx.scene.image.ImageView((Image("play.png")))
+        playButton.graphic = (playImageView)
+        playImageView.fitWidthProperty().bind(playButton.widthProperty().divide(5))
+        playImageView.isPreserveRatio = true
+        playButton.setMaxWidth(Double.MAX_VALUE)
+        this.items.add(playButton)
+
+        val pauseButton = Button("Pause")
+        pauseButton.setOnAction {
+            model.pause()
+        }
+        val pauseImageView = javafx.scene.image.ImageView((Image("pause.png")))
+        pauseButton.graphic = (pauseImageView)
+        pauseImageView.fitWidthProperty().bind(pauseButton.widthProperty().divide(5))
+        pauseImageView.isPreserveRatio = true
+        pauseButton.setMaxWidth(Double.MAX_VALUE)
+        this.items.add(pauseButton)*/
+
     }
 
     override fun update() {
