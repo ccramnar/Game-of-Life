@@ -41,6 +41,7 @@ class Model {
             }
         }
         changePattern(layout.CLEAR)
+        counter = 0;
         notifyView()
     }
 
@@ -57,6 +58,7 @@ class Model {
     }
 
     fun addPattern( row: Int, column: Int) {
+        ++counter;
         println("here")
         println(pattern)
         when(pattern) {
@@ -239,6 +241,7 @@ class Model {
     }
 
     fun updateBoard()  {
+        ++counter;
         for (row in  0 until sizeOuter) {
             for (column in 0 until sizeInner) {
                 //ALIVE
@@ -259,6 +262,7 @@ class Model {
                 }
             }
         }
+        notifyView()
     }
 
 }

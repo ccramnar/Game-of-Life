@@ -20,6 +20,7 @@ class Main : Application() {
         model.addView(status)
         model.addView(grid)
 
+
         // setup and display
         root.children.addAll(toolbar, grid, status)
         stage?.scene = Scene(root)
@@ -28,5 +29,6 @@ class Main : Application() {
         stage?.height = 650.0
         stage?.title = "Conway's Game of Life (ccramnar)"
         stage?.show()
+
     }
 }
