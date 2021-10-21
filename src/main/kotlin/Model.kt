@@ -231,33 +231,30 @@ class Model {
     fun checkNeighbours(row: Int, column: Int):Int {
         var numberOfNeighbours = 0;
         //row - 1
-        if (inBounds(row - 1, column - 1)) {
+        if (inBounds(row - 1, column - 1) && board[row - 1][column - 1]) {
             ++numberOfNeighbours;
         }
-        if (inBounds(row - 1, column)) {
+        if (inBounds(row - 1, column) && board[row - 1][column]) {
             ++numberOfNeighbours;
         }
-        if (inBounds(row - 1, column + 1)) {
+        if (inBounds(row - 1, column + 1) && board[row - 1][column + 1]) {
             ++numberOfNeighbours;
         }
         //row
-        if (inBounds(row , column - 1)) {
+        if (inBounds(row , column - 1) && board[row][column - 1]) {
             ++numberOfNeighbours;
         }
-        if (inBounds(row , column )) {
-            ++numberOfNeighbours;
-        }
-        if (inBounds(row , column + 1)) {
+        if (inBounds(row , column + 1) && board[row][column + 1]) {
             ++numberOfNeighbours;
         }
         //row + 1
-        if (inBounds(row + 1 , column - 1)) {
+        if (inBounds(row + 1 , column - 1) && board[row + 1][column - 1]) {
             ++numberOfNeighbours;
         }
-        if (inBounds(row + 1 , column )) {
+        if (inBounds(row + 1 , column ) && board[row + 1][column]) {
             ++numberOfNeighbours;
         }
-        if (inBounds(row + 1 , column + 1)) {
+        if (inBounds(row + 1 , column + 1) && board[row + 1][column + 1]) {
             ++numberOfNeighbours;
         }
         return numberOfNeighbours;
@@ -269,6 +266,7 @@ class Model {
                 //ALIVE
                 if (board[row][column]) {
                     val numberofNeighbours = checkNeighbours(row, column);
+                    println(row.toString() + " " + column.toString() + "     " + numberofNeighbours.toString())
                     if (numberofNeighbours < 2) {
                         board[row][column] = false;
                     } else if (numberofNeighbours <= 3) {
