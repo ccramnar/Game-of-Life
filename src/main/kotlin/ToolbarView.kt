@@ -1,10 +1,14 @@
 import javafx.scene.control.Button
 import javafx.scene.control.ToolBar
 import javafx.scene.image.Image
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCodeCombination
+import javafx.scene.input.KeyCombination
 import javax.swing.text.html.ImageView
 
 class ToolbarView(gmodel: Model) : IView, ToolBar() {
     val model:Model = gmodel;
+    val stepButton = Button("Step")
     init {
         // add buttons to toolbar
         val blockButton = Button("Block")
@@ -36,7 +40,7 @@ class ToolbarView(gmodel: Model) : IView, ToolBar() {
 
         val toadButton = Button("Toad")
         toadButton.setOnMouseClicked { model.changePattern(layout.TOAD) }
-        val toadImageView = javafx.scene.image.ImageView((Image("toad.gif")))
+        val toadImageView = javafx.scene.image.ImageView((Image("toad.PNG")))
         toadButton.graphic = (toadImageView)
         toadImageView.fitWidthProperty().bind(toadButton.widthProperty().divide(5))
         toadImageView.isPreserveRatio = true
@@ -85,11 +89,26 @@ class ToolbarView(gmodel: Model) : IView, ToolBar() {
         pauseImageView.fitWidthProperty().bind(pauseButton.widthProperty().divide(5))
         pauseImageView.isPreserveRatio = true
         pauseButton.setMaxWidth(Double.MAX_VALUE)
-        this.items.add(pauseButton)*/
+        this.items.add(pauseButton)
+
+        //step button
+        stepButton.setOnAction {
+            model.step()
+        }
+        val stepImageView = javafx.scene.image.ImageView((Image("step.png")))
+        pauseButton.graphic = (stepImageView)
+        stepImageView.fitWidthProperty().bind(pauseButton.widthProperty().divide(5))
+        stepImageView.isPreserveRatio = true
+        stepButton.setMaxWidth(Double.MAX_VALUE)
+        this.items.add(stepButton)*/
 
     }
 
     override fun update() {
-        // update my button state
+        if (model.isGamePlaying) {
+            stepButton.setDisable(true);
+        } else {
+            stepButton.setDisable(false);
+        }
     }
 }

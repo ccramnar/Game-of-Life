@@ -37,7 +37,7 @@ class Model {
     }
 
     /*ANIMATION */
-    open fun initializeTimeline() {
+    open fun startGame() {
 
         val keyFrame = KeyFrame(Duration.millis(speed), { e: ActionEvent? ->
             updateBoard()
@@ -73,7 +73,7 @@ class Model {
             }
         }
         println("here")
-        initializeTimeline()
+        startGame()
         play()
     }
 
@@ -293,16 +293,23 @@ class Model {
         //disable spacebar
         isGamePlaying = true;
         timeLine?.play()
+        notifyView()
     }
 
     fun pause() {
         isGamePlaying = false;
         timeLine?.pause()
+        notifyView()
         //enable spacebar for next
     }
 
     fun step() {
-        
+        if (isGamePlaying == false) {
+            ++counter;
+            updateBoard()
+        } else {
+            println("Need to pause game to step")
+        }
     }
 
 }
