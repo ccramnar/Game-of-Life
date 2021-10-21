@@ -12,20 +12,21 @@ class Main : Application() {
 
         // views are the children of the vbox
         val toolbar = ToolbarView()
-        // missing the grid here
+        val grid = GridView()
         val status = StatusView()
 
         // register views with the model
         model.addView(toolbar)
         model.addView(status)
+        model.addView(grid)
 
         // setup and display
-        root.children.addAll(toolbar, status)
+        root.children.addAll(toolbar, status, grid)
         stage?.scene = Scene(root)
         stage?.isResizable = false
         stage?.width = 800.0
         stage?.height = 600.0
-        stage?.title = "Conway's Game of Life"
+        stage?.title = "Conway's Game of Life (ccramnar)"
         stage?.show()
     }
 }
