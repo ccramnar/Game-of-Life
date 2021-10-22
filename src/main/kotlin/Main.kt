@@ -1,5 +1,7 @@
 import javafx.application.Application
+import javafx.event.EventHandler
 import javafx.scene.Scene
+import javafx.scene.input.KeyCode
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 
@@ -24,6 +26,9 @@ class Main : Application() {
         // setup and display
         root.children.addAll(toolbar, grid, status)
         stage?.scene = Scene(root)
+        stage?.scene?.onKeyPressed = EventHandler { keyEvent ->
+           grid.handleKeyEvents(keyEvent)
+        }
         stage?.isResizable = false
         stage?.width = 800.0
         stage?.height = 650.0

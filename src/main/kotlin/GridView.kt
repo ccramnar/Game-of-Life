@@ -1,6 +1,8 @@
 import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Node
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.GridPane
 import javafx.scene.paint.Color
@@ -32,8 +34,6 @@ class GridView(gmodel: Model) : IView, GridPane() {
                 } else {
                     cellRect.fill = Color.WHITE
                 }
-
-                // Add the Rectangle to the grid at the col/row.
                 setConstraints(cellRect, j, i)
                 this.add(cellRect, j, i)
 
@@ -50,6 +50,24 @@ class GridView(gmodel: Model) : IView, GridPane() {
         val eventSourceRow = getRowIndex(eventSource)
         println(model)
         model?.addPattern(eventSourceRow, eventSourceCol)
+    }
+
+    fun handleKeyEvents(keyEvent: KeyEvent) {
+        if (keyEvent.code == KeyCode.P) {
+            println("Play pressed")
+            keyEvent.consume()
+            model?.play()
+        }
+        if (keyEvent.code == KeyCode.S) {
+            println("Stop pressed")
+            keyEvent.consume()
+            model?.pause()
+        }
+        if (keyEvent.code == KeyCode.F) {
+            println("Space pressed")
+            keyEvent.consume()
+            model?.step()
+        }
     }
 
     override fun update() {

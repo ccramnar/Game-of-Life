@@ -290,15 +290,23 @@ class Model {
 
     fun play(){
         //disable spacebar
-        isGamePlaying = true;
-        timeLine?.play()
-        notifyView()
+        if (isGamePlaying) {
+            println("Already playing")
+        } else {
+            isGamePlaying = true;
+            timeLine?.play()
+            notifyView()
+        }
     }
 
     fun pause() {
-        isGamePlaying = false;
-        timeLine?.pause()
-        notifyView()
+        if (isGamePlaying) {
+            isGamePlaying = false;
+            timeLine?.pause()
+            notifyView()
+        } else {
+            println("Already paused")
+        }
         //enable spacebar for next
     }
 
